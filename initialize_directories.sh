@@ -1,8 +1,12 @@
 #!/bin/bash
 
 TEMPLATE_FILE="template_structure.yaml"  # The path must be correct
-RUNS_DIR="./runs"
-RUN_ID="$1" #I believe this takes param
+
+
+RUN_ID="$1"
+SAMPLE_ID="$2" #I believe this takes param
+
+RUNS_DIR_ID="./runs/${RUN_ID}"
 
 # Function to create directories based on the template
 create_directories() {
@@ -13,7 +17,7 @@ create_directories() {
     dirs=$(yq e '.run_id_placeholder | keys' "$TEMPLATE_FILE" | awk '{print $2}')  # Extract keys without dashes
 
     # Create the run directory
-    mkdir -p "${RUNS_DIR}/${run_id}"
+    mkdir -p "${RUNS_DIR_ID}/${SAMPLE_ID}"
 
     # Create subdirectories
     for dir in $dirs; do
@@ -21,7 +25,7 @@ create_directories() {
         dir=$(echo $dir | tr -d '"')
         # Check if dir is not empty and not a comment
         if [[ -n "$dir" && "$dir" != \#* ]]; then
-            mkdir -p "${RUNS_DIR}/${run_id}/${dir}"
+            mkdir -p "${RUNS_DIR_ID}/${SAMPLE_ID}/${dir}"
         fi
     done
 
@@ -35,9 +39,9 @@ if [ ! -f "$TEMPLATE_FILE" ]; then
 fi
 
 # Ensure a run ID is provided
-if [ -z "$RUN_ID" ]; then
-    echo "Usage: $0 RUN_ID"
+if [ -z "$SAMPLE_ID" ]; then
+    echo "Usage: $0 SAMPLE_ID"
     exit 1
 fi
 
-create_directories "$RUN_ID"
+create_directories "${RUNS_DIR_ID}${SAMPLE_ID}"

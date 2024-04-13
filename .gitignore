@@ -2,6 +2,8 @@
 .Rhistory
 .RData
 .Ruserdata
+input/
 runs/
 playground.ipynb
 CRPEC_working_backup.sh
+
