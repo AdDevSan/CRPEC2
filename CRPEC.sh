@@ -14,7 +14,7 @@ RUNS_DIR="./runs"
 SAMPLE_ID="CRPEC_run_$(date +%Y%m%d_%H%M%S)"
 TRIDENT_DIRECTORY="input/GSM4909297" #To be hit with the loop on each sample trident directory
 
-LOOP_RUNS=1
+LOOP_RUNS=2
 # Initialize directories for the new run
 bash initialize_directories.sh "${SAMPLE_ID}"
 
@@ -56,3 +56,5 @@ bash refine_clusters.sh "${H5AD_FILE_PATH}" "${INITIAL_CLUSTERS_DIR}" "${REFINED
 # PREDICT CLUSTERS 
 bash predict_clusters.sh "${H5AD_FILE_PATH}" "${REFINED_CLUSTERS_DIR}" "${PREDICTED_CLUSTERS_DIR}"
 
+# GET ENSEMBLE CLUSTERS
+python3 get_consensus_final_cluster_dict.py -d "${SAMPLE_DIR}"
