@@ -43,7 +43,7 @@ for TRIDENT_DIRECTORY in ${INPUT_DIR}/*; do
 
 
 
-    LOOP_RUNS=2
+    LOOP_RUNS=100
 
 
     #python trident_preprocess_to_h5ad_barcodes.py -t <trident_directory> -hd <h5ad_directory> -bd <filtered_barcodes_directory>
@@ -79,4 +79,13 @@ for TRIDENT_DIRECTORY in ${INPUT_DIR}/*; do
 
     # GET ENSEMBLE CLUSTERS
     python3 get_consensus_final_cluster_dict.py -d "${SAMPLE_DIR}"
+
+    ENSEMBLE_CLUSTER_PATH="${SAMPLE_DIR}/ensemble_cluster_full.json"
+
+    python3 get_gene_profiles.py \
+    --sample_name "${SAMPLE_ID}" \
+    --ensemble_cluster_path "${ENSEMBLE_CLUSTER_PATH}" \
+    --processed_path "${H5AD_FILE_PATH_ORIGINAL}" \
+    --output_directory_path "${SAMPLE_DIR}/gene_profiles"
+
 done
