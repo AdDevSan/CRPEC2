@@ -43,7 +43,7 @@ for TRIDENT_DIRECTORY in ${INPUT_DIR}/*; do
 
 
 
-    LOOP_RUNS=100
+    LOOP_RUNS=2
 
 
     #python trident_preprocess_to_h5ad_barcodes.py -t <trident_directory> -hd <h5ad_directory> -bd <filtered_barcodes_directory>
@@ -82,10 +82,14 @@ for TRIDENT_DIRECTORY in ${INPUT_DIR}/*; do
 
     ENSEMBLE_CLUSTER_PATH="${SAMPLE_DIR}/ensemble_cluster_full.json"
 
-    python3 get_gene_profiles.py \
+    python3 get_ensemble_adatas.py \
     --sample_name "${SAMPLE_ID}" \
     --ensemble_cluster_path "${ENSEMBLE_CLUSTER_PATH}" \
-    --processed_path "${H5AD_FILE_PATH_ORIGINAL}" \
-    --output_directory_path "${SAMPLE_DIR}/gene_profiles"
+    --processed_adata_path "${H5AD_FILE_PATH_ORIGINAL}" \
+    --output_directory_path "${SAMPLE_DIR}/ensemble_adatas"
 
+    #python process_adata.py 'runs/CRPEC_run_20240414_031735' 'gene_profiles_mean.csv'
+    
+
+    python get_gene_profiles_dtf.py --run_id "${RUNS_DIR_ID}" --output_file "${RUNS_DIR_ID}/gene_profiles_mean.csv"
 done

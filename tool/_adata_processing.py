@@ -85,7 +85,7 @@ def subset_anndata_from_barcodes_file(adata, barcodes_tsv_path):
 
 
 
-
+#INPUT CLUSTER_DICT AS JSON PATH
 def subset_anndata_from_cluster_dictionary(adata, cluster_json_path):
     # Load the cluster dictionary from the JSON file
     with open(cluster_json_path) as json_file:
@@ -99,7 +99,16 @@ def subset_anndata_from_cluster_dictionary(adata, cluster_json_path):
     
     return adata_subset
 
+#INPUT CLUSTER_DICT AS DICTIONARY TYPE
+def subset_anndata_from_cluster_dictionary2(adata, cluster_dict):
 
+    # Extract the barcodes (keys of the dictionary)
+    barcodes = list(cluster_dict.keys())
+    
+    # Subset the AnnData object to only include the cells with the barcodes from the cluster dictionary
+    adata_subset = adata[adata.obs.index.isin(barcodes)].copy()
+    
+    return adata_subset
 
 def preprocess_adata(adata):
     sc.pp.filter_cells(adata, min_genes=200)

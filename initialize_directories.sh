@@ -44,4 +44,4 @@ if [ -z "$SAMPLE_ID" ]; then
     exit 1
 fi
 
-create_directories "${RUNS_DIR_ID}${SAMPLE_ID}"
+create_directories "${RUNS_DIR_ID}/${SAMPLE_ID}"

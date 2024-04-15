@@ -4,4 +4,4 @@ run_id_placeholder:
   sample_200: {}
   sample_remainder: {}
   predicted_clusters: {}
-  gene_profiles: {}
+  ensemble_adatas: {}
