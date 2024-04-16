@@ -43,7 +43,7 @@ for TRIDENT_DIRECTORY in ${INPUT_DIR}/*; do
 
 
 
-    LOOP_RUNS=2
+    LOOP_RUNS=100
 
 
     #python trident_preprocess_to_h5ad_barcodes.py -t <trident_directory> -hd <h5ad_directory> -bd <filtered_barcodes_directory>
