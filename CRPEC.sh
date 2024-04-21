@@ -21,12 +21,9 @@ RUN_ID="CRPEC_run_$(date +%Y%m%d_%H%M%S)"
 RUNS_DIR_ID="${RUNS_DIR}/${RUN_ID}"
 mkdir "${RUNS_DIR_ID}"  # runs/CRPEC_run_X
 
-# Loop over each trident directory in the input directory
-for TRIDENT_DIRECTORY in ${INPUT_DIR}/*; do
-    # Extract the base name for the trident directory to use as SAMPLE_ID
-    SAMPLE_ID=$(basename "${TRIDENT_DIRECTORY}")
-    
-
+for PATIENT_ADATA_FULL in ${INPUT_DIR}/*.h5ad; do
+    # Extract the base name for the .h5ad file to use as SAMPLE_ID, stripping the extension
+    SAMPLE_ID=$(basename "${PATIENT_ADATA_FULL}" .h5ad) # This removes the .h5ad extension
     
 
     # Initialize directories for the new run
@@ -46,8 +43,8 @@ for TRIDENT_DIRECTORY in ${INPUT_DIR}/*; do
     LOOP_RUNS=100
 
 
-    #python trident_preprocess_to_h5ad_barcodes.py -t <trident_directory> -hd <h5ad_directory> -bd <filtered_barcodes_directory>
-    python3 trident_preprocess_to_h5ad_barcodes.py -t "${TRIDENT_DIRECTORY}" -hd "${SAMPLE_DIR}" -bd "${SAMPLE_DIR}"
+    #python h5ad_preprocess_to_h5ad_barcodes.py -t <trident_directory> -hd <h5ad_directory> -bd <filtered_barcodes_directory>
+    python3 h5ad_preprocess_to_h5ad_barcodes.py -t "${PATIENT_ADATA_FULL}" -hd "${SAMPLE_DIR}" -bd "${SAMPLE_DIR}"
 
     #OUTPUTS FROM TRIDENT PREPROCESS:
     H5AD_FILE_PATH_ORIGINAL="${RUNS_DIR_ID}/${SAMPLE_ID}/full_dataset_processed.h5ad"
