@@ -27,7 +27,7 @@ for PATIENT_ADATA_FULL in ${INPUT_DIR}/*.h5ad; do
     
 
     # Initialize directories for the new run
-    bash initialize_directories.sh "${RUN_ID}" "${SAMPLE_ID}"
+    python create_directories.py "${RUN_ID}" "${SAMPLE_ID}" "template_structure.yaml"
 
     # Define directory paths
     SAMPLE_DIR="${RUNS_DIR_ID}/${SAMPLE_ID}"
